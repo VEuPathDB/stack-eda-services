@@ -1,0 +1,8 @@
+services:
+  eda-compute:
+    build:
+      dockerfile: Dockerfile
+      context: ../service-eda-compute
+      args:
+        GITHUB_USERNAME: ${GITHUB_USERNAME}
+        GITHUB_TOKEN: ${GITHUB_TOKEN}
