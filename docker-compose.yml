@@ -122,11 +122,10 @@ services:
     - "traefik.docker.network=traefik"
 
   eda-compute:
+    image: veupathdb/eda-compute:${COMPUTE_TAG:-latest}
     ports:
       - "8080:8080"
     depends_on:
-      - minio
-      - minio-create-buckets
       - compute-queue
       - compute-queue-db
       - dataset-access
@@ -195,6 +194,13 @@ services:
       DATASET_ACCESS_HOST: ${DATASET_ACCESS_SERVICE_URL:-http://dataset-access}:${DATASET_ACCESS_SERVER_PORT:-8080}
       RSERVE_HOST: ${RSERVE_URL:-http://rserve:6311}
 
+  compute-queue:
+    image: rabbitmq:3.10.5-management-alpine
+    ports:
+      - "9002:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: ${COMPUTE_QUEUE_USER}
+      RABBITMQ_DEFAULT_PASS: ${COMPUTE_QUEUE_PASS}
 
   compute-queue-db:
     image: postgres:14.3-alpine3.16
