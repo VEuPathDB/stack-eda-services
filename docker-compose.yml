@@ -205,7 +205,7 @@ services:
       - "traefik.docker.network=traefik"
 
   compute-queue:
-    image: rabbitmq:3.10.5
+    image: rabbitmq:3.10.5-management-alpine
     environment:
       RABBITMQ_DEFAULT_USER: ${COMPUTE_QUEUE_USER}
       RABBITMQ_DEFAULT_PASS: ${COMPUTE_QUEUE_PASS}
