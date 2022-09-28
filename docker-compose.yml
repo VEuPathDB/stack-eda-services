@@ -198,10 +198,10 @@ services:
     labels:
       - "prometheus.scrape_enabled=true"
       - "com.centurylinklabs.watchtower.enable=${COMPUTE_WATCHTOWER:-false}"
-      - "traefik.http.services.${TRAEFIK_COMPUTE_ROUTER:-eda-compute-dev}.loadbalancer.server.port=${COMPUTE_SERVER_PORT:-8080}"
-      - "traefik.http.routers.${TRAEFIK_COMPUTE_ROUTER:-eda-compute-dev}.rule=Host(`${TRAEFIK_COMPUTE_HOST:-eda-compute-dev.local.apidb.org}`)"
-      - "traefik.http.routers.${TRAEFIK_COMPUTE_ROUTER:-eda-compute-dev}.tls=true"
-      - "traefik.http.routers.${TRAEFIK_COMPUTE_ROUTER:-eda-compute-dev}.entrypoints=${TRAEFIK_ENTRYPOINTS:-local}"
+      - "traefik.http.services.${TRAEFIK_COMPUTE_ROUTER:-edacompute-dev}.loadbalancer.server.port=${COMPUTE_SERVER_PORT:-8080}"
+      - "traefik.http.routers.${TRAEFIK_COMPUTE_ROUTER:-edacompute-dev}.rule=Host(`${TRAEFIK_COMPUTE_HOST:-edadata-dev.local.apidb.org}`) && PathPrefix(`/compute/`, `/computes/`)"
+      - "traefik.http.routers.${TRAEFIK_COMPUTE_ROUTER:-edacompute-dev}.tls=true"
+      - "traefik.http.routers.${TRAEFIK_COMPUTE_ROUTER:-edacompute-dev}.entrypoints=${TRAEFIK_ENTRYPOINTS:-local}"
       - "traefik.docker.network=traefik"
 
   compute-queue:
