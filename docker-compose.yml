@@ -123,14 +123,16 @@ services:
 
   eda-compute:
     image: veupathdb/eda-compute:${COMPUTE_TAG:-latest}
-    ports:
-      - "8080:8080"
     depends_on:
       - compute-queue
       - compute-queue-db
       - dataset-access
       - subsetting
       - merging
+    networks:
+      internal:
+      traefik:
+      monitoring-ext:
     environment:
       # Auth Secret (needed along with user/acct DBs for auth)
       AUTH_SECRET_KEY: ${AUTH_SECRET_KEY}
@@ -193,23 +195,39 @@ services:
       EDA_MERGE_HOST: ${MERGING_SERVICE_URL:-http://eda-merge}:${MERGING_SERVER_PORT:-8080}
       DATASET_ACCESS_HOST: ${DATASET_ACCESS_SERVICE_URL:-http://dataset-access}:${DATASET_ACCESS_SERVER_PORT:-8080}
       RSERVE_HOST: ${RSERVE_URL:-http://rserve:6311}
+    labels:
+      - "prometheus.scrape_enabled=true"
+      - "com.centurylinklabs.watchtower.enable=${COMPUTE_WATCHTOWER:-false}"
+      - "traefik.http.services.${TRAEFIK_COMPUTE_ROUTER:-eda-compute-dev}.loadbalancer.server.port=${COMPUTE_SERVER_PORT:-8080}"
+      - "traefik.http.routers.${TRAEFIK_COMPUTE_ROUTER:-eda-compute-dev}.rule=Host(`${TRAEFIK_COMPUTE_HOST:-eda-compute-dev.local.apidb.org}`)"
+      - "traefik.http.routers.${TRAEFIK_COMPUTE_ROUTER:-eda-compute-dev}.tls=true"
+      - "traefik.http.routers.${TRAEFIK_COMPUTE_ROUTER:-eda-compute-dev}.entrypoints=${TRAEFIK_ENTRYPOINTS:-local}"
+      - "traefik.docker.network=traefik"
 
   compute-queue:
     image: rabbitmq:3.10.5-management-alpine
-    ports:
-      - "9002:15672"
     environment:
       RABBITMQ_DEFAULT_USER: ${COMPUTE_QUEUE_USER}
       RABBITMQ_DEFAULT_PASS: ${COMPUTE_QUEUE_PASS}
+    networks:
+      - internal
+    labels:
+      - "com.centurylinklabs.watchtower.enable=${RABBITMQ_WATCHTOWER:-false}"
+      - "traefik.enable=false"
 
   compute-queue-db:
     image: postgres:14.3-alpine3.16
-    ports:
-      - "5432:5432"
     environment:
       POSTGRES_USER: ${COMPUTE_POSTGRES_USER}
       POSTGRES_PASSWORD: ${COMPUTE_POSTGRES_PASS}
       POSTGRES_DB: ${COMPUTE_POSTGRES_DB}
+    volumes:
+      - eda-compute-db:/var/lib/postgresql/data
+    networks:
+      - internal
+    labels:
+      - "com.centurylinklabs.watchtower.enable=${POSTGRES_WATCHTOWER:-false}"
+      - "traefik.enable=false"
 
   rserve:
     image: veupathdb/rserve:${RSERVE_TAG:-latest}
@@ -402,3 +420,5 @@ networks:
   monitoring-ext:
     external: true
 
+volumes:
+  eda-compute-db:

@@ -5,6 +5,8 @@ services:
     ports:
       - "9000:9000"
       - "9001:9001"
+    networks:
+      - internal
     environment:
       MINIO_ROOT_USER: ${COMPUTE_S3_ACCESS_TOKEN}
       MINIO_ROOT_PASSWORD: ${COMPUTE_S3_SECRET_KEY}
@@ -13,6 +15,8 @@ services:
     image: minio/mc
     depends_on:
       - minio
+    networks:
+      - internal
     environment:
       MINIO_USER: ${COMPUTE_S3_ACCESS_TOKEN?required}
       MINIO_PASS: ${COMPUTE_S3_SECRET_KEY?required}
@@ -39,6 +43,21 @@ services:
     depends_on:
       - minio
       - minio-create-buckets
+    ports:
+      - "8080:8080"
+
+  compute-queue:
+    ports:
+      - "9002:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: ${COMPUTE_QUEUE_USER}
+      RABBITMQ_DEFAULT_PASS: ${COMPUTE_QUEUE_PASS}
+
+  compute-queue-db:
+    image: postgres:14.3-alpine3.16
+    ports:
+      - "5432:5432"
 
 networks:
   monitoring-ext:
+  internal:
