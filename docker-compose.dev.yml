@@ -1,4 +1,9 @@
+version: "3.5"
+
+name: eda-dev
+
 services:
+
   minio:
     image: minio/minio
     command: server --console-address ':9001' /data
@@ -30,34 +35,8 @@ services:
       exit 0;
       "
 
-  rserve:
-    image: veupathdb/rserve:${RSERVE_TAG:-latest}
-
   email-spoof:
     image: reachfive/fake-smtp-server
     ports:
       - 25:1025
       - 1080:1080
-  
-  eda-compute:
-    depends_on:
-      - minio
-      - minio-create-buckets
-    ports:
-      - "8080:80"
-
-  compute-queue:
-    ports:
-      - "9002:15672"
-    environment:
-      RABBITMQ_DEFAULT_USER: ${COMPUTE_QUEUE_USER}
-      RABBITMQ_DEFAULT_PASS: ${COMPUTE_QUEUE_PASS}
-
-  compute-queue-db:
-    image: postgres:14.3-alpine3.16
-    ports:
-      - "5432:5432"
-
-networks:
-  monitoring-ext:
-  internal:
