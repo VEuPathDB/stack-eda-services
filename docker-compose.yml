@@ -40,11 +40,13 @@ services:
       ACCT_DB_TNS_NAME: ${ACCT_DB_TNS_NAME}
       ACCT_DB_USER: ${ACCT_DB_USER}
       ACCT_DB_PASS: ${ACCT_DB_PASS}
+      ACCT_DB_POOL_SIZE: ${ACCT_DB_POOL_SIZE:-3}
 
       # User Database
       USER_DB_TNS_NAME: ${USER_DB_TNS_NAME}
       USER_DB_USER: ${USER_DB_USER}
       USER_DB_PASS: ${USER_DB_PASS}
+      USER_DB_POOL_SIZE: ${USER_DB_POOL_SIZE:-3}
       USER_DB_SCHEMA: ${USER_DB_SCHEMA:-userlogins5}
 
       # Auth Secret (needed along with user/acct DBs for auth)
@@ -105,11 +107,13 @@ services:
       ACCT_DB_TNS_NAME: ${ACCT_DB_TNS_NAME}
       ACCT_DB_USER: ${ACCT_DB_USER}
       ACCT_DB_PASS: ${ACCT_DB_PASS}
+      ACCT_DB_POOL_SIZE: ${ACCT_DB_POOL_SIZE:-3}
 
       # User Database
       USER_DB_TNS_NAME: ${USER_DB_TNS_NAME}
       USER_DB_USER: ${USER_DB_USER}
       USER_DB_PASS: ${USER_DB_PASS}
+      USER_DB_POOL_SIZE: ${USER_DB_POOL_SIZE:-3}
       USER_DB_SCHEMA: ${USER_DB_SCHEMA:-userlogins5}
 
       # Auth Secret (needed along with user/acct DBs for auth)
@@ -153,12 +157,13 @@ services:
       ACCT_DB_TNS_NAME: ${ACCT_DB_TNS_NAME}
       ACCT_DB_USER: ${ACCT_DB_USER}
       ACCT_DB_PASS: ${ACCT_DB_PASS}
-      ACCT_DB_POOL_SIZE: 20
+      ACCT_DB_POOL_SIZE: ${ACCT_DB_POOL_SIZE:-3}
 
       # User Database
       USER_DB_TNS_NAME: ${USER_DB_TNS_NAME}
       USER_DB_USER: ${USER_DB_USER}
       USER_DB_PASS: ${USER_DB_PASS}
+      USER_DB_POOL_SIZE: ${USER_DB_POOL_SIZE:-3}
       USER_DB_SCHEMA: ${USER_DB_SCHEMA:-userlogins5}
 
       # Queue Platform Postgres
@@ -258,11 +263,13 @@ services:
       ACCT_DB_TNS_NAME: ${ACCT_DB_TNS_NAME}
       ACCT_DB_USER: ${ACCT_DB_USER}
       ACCT_DB_PASS: ${ACCT_DB_PASS}
+      ACCT_DB_POOL_SIZE: ${ACCT_DB_POOL_SIZE:-3}
 
       # User Database
       USER_DB_TNS_NAME: ${USER_DB_TNS_NAME}
       USER_DB_USER: ${USER_DB_USER}
       USER_DB_PASS: ${USER_DB_PASS}
+      USER_DB_POOL_SIZE: ${USER_DB_POOL_SIZE:-20}
       USER_DB_SCHEMA: ${USER_DB_SCHEMA:-userlogins5}
 
       # Auth Secret (needed along with user/acct DBs for auth)
@@ -317,11 +324,13 @@ services:
       ACCT_DB_TNS_NAME: ${ACCT_DB_TNS_NAME}
       ACCT_DB_USER: ${ACCT_DB_USER}
       ACCT_DB_PASS: ${ACCT_DB_PASS}
+      ACCT_DB_POOL_SIZE: ${ACCT_DB_POOL_SIZE:-3}
 
       # User Database
       USER_DB_TNS_NAME: ${USER_DB_TNS_NAME}
       USER_DB_USER: ${USER_DB_USER}
       USER_DB_PASS: ${USER_DB_PASS}
+      USER_DB_POOL_SIZE: ${USER_DB_POOL_SIZE:-3}
       USER_DB_SCHEMA: ${USER_DB_SCHEMA:-userlogins5}
 
       # Auth Secret (needed along with user/acct DBs for auth)
@@ -375,11 +384,13 @@ services:
       ACCT_DB_TNS_NAME: ${ACCT_DB_TNS_NAME}
       ACCT_DB_USER: ${ACCT_DB_USER}
       ACCT_DB_PASS: ${ACCT_DB_PASS}
+      ACCT_DB_POOL_SIZE: ${ACCT_DB_POOL_SIZE:-3}
 
       # User Database
       USER_DB_TNS_NAME: ${USER_DB_TNS_NAME}
       USER_DB_USER: ${USER_DB_USER}
       USER_DB_PASS: ${USER_DB_PASS}
+      USER_DB_POOL_SIZE: ${USER_DB_POOL_SIZE:-3}
       USER_DB_SCHEMA: ${USER_DB_SCHEMA:-userlogins5}
 
       # Auth Secret (needed along with user/acct DBs for auth)
