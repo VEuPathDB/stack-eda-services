@@ -37,6 +37,7 @@ services:
       APP_DB_USER: ${APP_DB_USER}
       APP_DB_PASS: ${APP_DB_PASS}
       APP_DB_SCHEMA: ${APP_DB_SCHEMA:-eda.}
+      APP_DB_POOL_SIZE: ${APP_DB_POOL_SIZE:-20}
 
       # Account Database
       ACCT_DB_TNS_NAME: ${ACCT_DB_TNS_NAME}
@@ -320,7 +321,7 @@ services:
       APP_DB_TNS_NAME: ${APP_DB_TNS_NAME}
       APP_DB_USER: ${APP_DB_USER}
       APP_DB_PASS: ${APP_DB_PASS}
-      APP_DB_POOL_SIZE: 20
+      APP_DB_POOL_SIZE: ${APP_DB_POOL_SIZE:-20}
 
       # Account Database
       ACCT_DB_TNS_NAME: ${ACCT_DB_TNS_NAME}
