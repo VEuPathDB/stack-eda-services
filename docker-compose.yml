@@ -197,7 +197,7 @@ services:
       S3_USE_HTTPS: ${COMPUTE_S3_USE_HTTPS:-true}
 
       # Job Settings
-      JOB_CACHE_TIMEOUT_DAYS: 30
+      JOB_CACHE_TIMEOUT_DAYS: ${JOB_CACHE_TIMEOUT_DAYS:-30}
 
       # EDA Stack Settings
       EDA_SUBSETTING_HOST: ${SUBSETTING_SERVICE_URL:-http://eda-subsetting}:${SUBSETTING_SERVER_PORT:-8080}
