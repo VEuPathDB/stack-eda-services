@@ -2,7 +2,10 @@
 ## Overview
 Contains the production and development docker-compose files to deploy the entire set of EDA services
 
-## Local Development
+## Subsetting Files
+In order run the map-reduce file-based subsetting locally, you need to choose a directory on your local machine where you would like to store the EDA binary files.
+
+## Container Deployment
 ### Prerequisites
 In order to deploy the EDA stack locally, the following is required:
 #### Docker

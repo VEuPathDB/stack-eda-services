@@ -1,7 +1,5 @@
 version: "3.5"
 
-name: eda-dev
-
 services:
 
   minio:

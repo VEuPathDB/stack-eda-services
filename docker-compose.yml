@@ -14,7 +14,7 @@ services:
     volumes:
       - type: bind
         source: ${MACHINE_BINARY_FILES_DIR:-/var/www/Common/apiSiteFilesMirror/webServices}
-        target: ${SERVICE_BINARY_FILES_DIR:-/binaryFiles}
+        target: ${SERVICE_BINARY_FILES_MOUNT:-/binaryFiles}
         read_only: true
     environment:
       # port providing the service
@@ -24,9 +24,9 @@ services:
       DATASET_ACCESS_SERVICE_URL: ${DATASET_ACCESS_SERVICE_URL:-http://dataset-access-internal}:${DATASET_ACCESS_SERVER_PORT:-8080}
 
       # Map-reduce subsetting method configuraton
-      BINARY_FILES_DIR: ${SERVICE_BINARY_FILES_DIR:-/binaryFiles}
+      BINARY_FILES_DIR: ${SERVICE_BINARY_FILES_DIR:-edaBinaryFiles/%DB_BUILD%}
+      BINARY_FILES_MOUNT: ${SERVICE_BINARY_FILES_MOUNT:-/binaryFiles}
       DB_BUILD: ${DB_BUILD}
-      AVAILABLE_BINARY_FILES_PATHS: ${AVAILABLE_BINARY_FILES_PATHS:-ClinEpiDB/%DB_BUILD%/eda-studies-binary;MicrobiomeDB/%DB_BUILD%/eda-studies-binary;*/%DB_BUILD%/*/eda-studies-binary}
       FILE_SUBSETTING_ENABLED: ${FILE_SUBSETTING_ENABLED:-false}
 
       # LDAP values to look up DBs
