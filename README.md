@@ -40,7 +40,7 @@ If you have made changes to any of the services, you will need to rebuild the im
 The following command can be run to trigger the build:
 
 ```shell
-docker-compose -f docker-compose.yml -f docker-compose-compute-dev.yml -f docker-build/docker-compose-build-<service-name>.yml build
+docker-compose -f docker-compose.yml -f docker-compose.dev.yml -f docker-build/docker-compose-build-<service-name>.yml build
 ```
 
 Note that you can include one or more services in the build by adding `-f docker-build/docker-compose-build-<service-name>.yml` for each service you wish to build.
@@ -51,7 +51,7 @@ Note at this point, both Sshuttle and Traefik should be running according to the
 Bringing up the stack using the latest images for each of the services in the EDA stack can be done by simply running:
 
 ```shell
-docker compose -f docker-compose.yml -f docker-compose-compute-dev.yml -f up
+docker compose -f docker-compose.yml -f docker-compose.dev.yml up
 ```
 
 > :note: If you included any additional files in step 2a., you should include them in the above command as well (I think? I'm not 100% sure if this matters).
