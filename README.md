@@ -30,7 +30,7 @@ Before running, you will need to update the `sshuttle.conf` file to specify a va
 ### Deploying the Stack
 
 #### 1. Set Environment Variables
-This step only needs to be done once, after this project is checked out. Run `cp .env.sample .env`. This file contains sane defaults for all the environment variables required by the EDA services. Most can be left as is, but some values such as passwords, secrets and hostnames must be filled in.
+This step only needs to be done once, after this project is checked out. Run `cp env.sample .env`. This file contains sane defaults for all the environment variables required by the EDA services. Most can be left as is, but some values such as passwords, secrets and hostnames must be filled in.
 
 #### 2a. (Optional) Build Images
 If you have made changes to any of the services, you will need to rebuild the image in order for your changes to take effect. For convenience, the `docker-build` directory of this project contains a docker file per service, that can be included if you have changes staged for the respective service.
