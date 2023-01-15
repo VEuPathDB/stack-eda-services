@@ -260,6 +260,9 @@ services:
       # port providing the service
       SERVER_PORT: ${USER_SERVER_PORT:-8080}
 
+      # URLs of required services
+      DATASET_ACCESS_SERVICE_URL: ${DATASET_ACCESS_SERVICE_URL:-http://dataset-access-internal}:${DATASET_ACCESS_SERVER_PORT:-8080}
+
       # LDAP values to look up DBs
       LDAP_SERVER: ${LDAP_SERVER}
       ORACLE_BASE_DN: ${ORACLE_BASE_DN}
