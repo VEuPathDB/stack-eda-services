@@ -79,10 +79,16 @@ services:
       # URLs of required services
       SUBSETTING_SERVICE_URL: ${SUBSETTING_SERVICE_URL:-http://subsetting-internal}:${SUBSETTING_SERVER_PORT:-8080}
       COMPUTE_SERVICE_URL: ${COMPUTE_SERVICE_URL:-http://compute-internal}:${COMPUTE_SERVER_PORT:-8080}
+      DATASET_ACCESS_SERVICE_URL: ${DATASET_ACCESS_SERVICE_URL:-http://dataset-access-internal}:${DATASET_ACCESS_SERVER_PORT:-8080}
 
     labels:
     - "prometheus.scrape_enabled=true"
     - "com.centurylinklabs.watchtower.enable=${MERGING_WATCHTOWER:-false}"
+    - "traefik.http.services.${TRAEFIK_MERGING_ROUTER:-edamerging-dev}.loadbalancer.server.port=${MERGING_SERVER_PORT:-8080}"
+    - "traefik.http.routers.${TRAEFIK_MERGING_ROUTER:-edamerging-dev}.rule=Host(`${TRAEFIK_DATA_HOST:-edadata-dev.local.apidb.org}`) && PathPrefix(`/merging-query-external`)"
+    - "traefik.http.routers.${TRAEFIK_MERGING_ROUTER:-edamerging-dev}.tls=${USE_TRAEFIK_SSL:-true}"
+    - "traefik.http.routers.${TRAEFIK_MERGING_ROUTER:-edamerging-dev}.entrypoints=${TRAEFIK_ENTRYPOINTS:-local}"
+    - "traefik.docker.network=traefik"
 
   data:
     image: veupathdb/eda-data:${DATA_TAG:-latest}
