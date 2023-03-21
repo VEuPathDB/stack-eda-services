@@ -1,0 +1,16 @@
+config:
+  infra-eda-compute:rabbitEndpoint: some-rabbit:5672
+  infra-eda-compute:rabbitPassword:
+    secure: AAABAIuMhGDUIjm+FUm8kIb4yfHwrpcI1z+XThWqKQ7+gkjjRq1wnw==
+  infra-eda-compute:rabbitUsername:
+    secure: AAABAPVduouDrC+069J7mj7voXiOqvUgq75FQFWp4PwGgS5p
+  minio:minioAccessKey:
+    secure: AAABAOapa/0Cyr8Ua24z6f7cYujYswCdE19eCgGcuPLlDX108Jf5OQ==
+  minio:minioSecretKey:
+    secure: AAABALJ1GIwwwc6sCWhk3F7a7OY+iSbfA4qfxPD6gkm3goySv+Cv45wwiw==
+  minio:minioServer: localhost:9000
+  rabbitmq:endpoint: localhost:5672
+  rabbitmq:password:
+    secure: AAABANwzHlO2QQwltiCyHaFyeSydNa2gcui3c4IWW+dekUagQ8fCtA==
+  rabbitmq:username:
+    secure: AAABAPqm7jeRFEHW98wcQqVFJQc663LKqxP73EXJxRp7925Q

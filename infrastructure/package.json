@@ -1,0 +1,13 @@
+{
+    "name": "infra-eda-compute",
+    "main": "index.ts",
+    "devDependencies": {
+        "@types/node": "^16"
+    },
+    "dependencies": {
+        "@pulumi/minio": "^0.8.0",
+        "@pulumi/pulumi": "^3.0.0",
+        "@pulumi/rabbitmq": "^1.7.0",
+        "child_process": "^1.0.2"
+    }
+}
