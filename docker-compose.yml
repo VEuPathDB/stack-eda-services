@@ -425,6 +425,9 @@ services:
       PROJECT_SPECIFIC_PROP_MB_PROJECT_ID: MicrobiomeDB
       PROJECT_SPECIFIC_PROP_MB_RAW_FILES_DIR: MicrobiomeDB
 
+      PROJECT_SPECIFIC_PROP_VB_PROJECT_ID: VectorBase
+      PROJECT_SPECIFIC_PROP_VB_RAW_FILES_DIR: VectorBase
+
     labels:
     - "prometheus-scrape.enabled=true"
     - "com.centurylinklabs.watchtower.enable=${DDS_WATCHTOWER:-false}"
