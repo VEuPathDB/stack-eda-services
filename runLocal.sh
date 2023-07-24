@@ -1,8 +1,8 @@
 #!/bin/bash
 
-docker compose -f docker-compose.yml -f docker-compose.dev.yml down -v
+docker compose -p eda_local -f docker-compose.yml -f docker-compose.dev.yml down -v
 
 mkdir -p /tmp/edaBinaryFiles
 mkdir -p /tmp/download
 
-docker compose -f docker-compose.yml -f docker-compose.dev.yml up
+docker compose -p eda_local -f docker-compose.yml -f docker-compose.dev.yml up
