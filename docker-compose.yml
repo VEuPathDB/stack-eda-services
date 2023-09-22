@@ -22,6 +22,10 @@ services:
 
       # URLs of required services
       DATASET_ACCESS_SERVICE_URL: ${DATASET_ACCESS_SERVICE_URL:-http://dataset-access-internal}:${DATASET_ACCESS_SERVER_PORT:-8080}
+      SUBSETTING_SERVICE_URL: ${SUBSETTING_SERVICE_URL:-http://subsetting-internal}:${SUBSETTING_SERVER_PORT:-8080}
+      MERGING_SERVICE_URL: ${MERGING_SERVICE_URL:-http://merging-internal}:${MERGING_SERVER_PORT:-8080}
+      COMPUTE_SERVICE_URL: ${COMPUTE_SERVICE_URL:-http://compute-internal}:${COMPUTE_SERVER_PORT:-8080}
+      RSERVE_URL: ${RSERVE_URL:-http://rserve-internal:6311}
 
       # Map-reduce subsetting method configuraton
       BINARY_FILES_DIR: ${SERVICE_BINARY_FILES_DIR:-VEuPathDB/edaBinaryFiles/%DB_BUILD%}
@@ -62,7 +66,7 @@ services:
     - "prometheus.scrape_enabled=true"
     - "com.centurylinklabs.watchtower.enable=${SUBSETTING_WATCHTOWER:-false}"
     - "traefik.http.services.${TRAEFIK_SUBSETTING_ROUTER:-edasubsetting-dev}.loadbalancer.server.port=${SUBSETTING_SERVER_PORT:-8080}"
-    - "traefik.http.routers.${TRAEFIK_SUBSETTING_ROUTER:-edasubsetting-dev}.rule=Host(`${TRAEFIK_DATA_HOST:-edadata-dev.local.apidb.org}`) && PathPrefix(`/studies`,`/clear-metadata-cache`)"
+    - "traefik.http.routers.${TRAEFIK_SUBSETTING_ROUTER:-edasubsetting-dev}.rule=Host(`${TRAEFIK_DATA_HOST:-edadata-dev.local.apidb.org}`) && PathPrefix(`/clear-metadata-cache`)"
     - "traefik.http.routers.${TRAEFIK_SUBSETTING_ROUTER:-edasubsetting-dev}.tls=${USE_TRAEFIK_SSL:-true}"
     - "traefik.http.routers.${TRAEFIK_SUBSETTING_ROUTER:-edasubsetting-dev}.entrypoints=${TRAEFIK_ENTRYPOINTS:-local}"
     - "traefik.docker.network=traefik"
@@ -102,13 +106,18 @@ services:
           - data-internal
       traefik:
       monitoring-ext:
+    volumes:
+      - type: bind
+        source: ${MACHINE_BINARY_FILES_DIR:-/var/www/Common/apiSiteFilesMirror/webServices}
+        target: ${SERVICE_BINARY_FILES_MOUNT:-/binaryFiles}
+        read_only: true
     environment:
       # port providing the service
       SERVER_PORT: ${DATA_SERVER_PORT:-8080}
 
       # URLs of required services
-      SUBSETTING_SERVICE_URL: ${SUBSETTING_SERVICE_URL:-http://subsetting-internal}:${SUBSETTING_SERVER_PORT:-8080}
-      MERGING_SERVICE_URL: ${MERGING_SERVICE_URL:-http://merging-internal}:${MERGING_SERVER_PORT:-8080}
+      SUBSETTING_SERVICE_URL: ${SUBSETTING_SERVICE_URL:-http://localhost}:${SUBSETTING_SERVER_PORT:-8080}
+      MERGING_SERVICE_URL: ${MERGING_SERVICE_URL:-http://localhost}:${MERGING_SERVER_PORT:-8080}
       COMPUTE_SERVICE_URL: ${COMPUTE_SERVICE_URL:-http://compute-internal}:${COMPUTE_SERVER_PORT:-8080}
       RSERVE_URL: ${RSERVE_URL:-http://rserve-internal:6311}
       DATASET_ACCESS_SERVICE_URL: ${DATASET_ACCESS_SERVICE_URL:-http://dataset-access-internal}:${DATASET_ACCESS_SERVER_PORT:-8080}
@@ -116,6 +125,14 @@ services:
       # LDAP values to look up DBs
       LDAP_SERVER: ${LDAP_SERVER}
       ORACLE_BASE_DN: ${ORACLE_BASE_DN}
+
+      # Application Database
+      APP_DB_TNS_NAME: ${APP_DB_TNS_NAME}
+      APP_DB_USER: ${APP_DB_USER}
+      APP_DB_PASS: ${APP_DB_PASS}
+      APP_DB_SCHEMA: ${APP_DB_SCHEMA:-eda.}
+      APP_DB_POOL_SIZE: ${APP_DB_POOL_SIZE:-20}
+      USER_STUDY_SCHEMA: ${USER_STUDY_SCHEMA:-apidbuserdatasets.}
 
       # Account Database
       ACCT_DB_TNS_NAME: ${ACCT_DB_TNS_NAME}
@@ -132,6 +149,12 @@ services:
 
       # Auth Secret (needed along with user/acct DBs for auth)
       AUTH_SECRET_KEY: ${AUTH_SECRET_KEY}
+
+      # Map-reduce subsetting method configuraton
+      BINARY_FILES_DIR: ${SERVICE_BINARY_FILES_DIR:-VEuPathDB/edaBinaryFiles/%DB_BUILD%}
+      BINARY_FILES_MOUNT: ${SERVICE_BINARY_FILES_MOUNT:-/binaryFiles}
+      DB_BUILD: ${DB_BUILD}
+      FILE_SUBSETTING_ENABLED: ${FILE_SUBSETTING_ENABLED:-false}
 
     labels:
     - "prometheus.scrape_enabled=true"
