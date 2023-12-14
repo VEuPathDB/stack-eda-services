@@ -5,6 +5,21 @@ Contains the production and development docker-compose files to deploy the entir
 ## Subsetting Files
 In order run the map-reduce file-based subsetting locally, you need to choose a directory on your local machine where you would like to store the EDA binary files.
 
+### Setting up Local Files for a Study
+1. Set up directory
+```
+mkdir -p ~/eda-data/binary-files
+```
+2. Copy files from web services on a VEuPath server. Replace <user> and <current-build> with appropriate values.
+```
+scp -r <user>@fir.penn.apidb.org:/var/www/Common/apiSiteFilesMirror/webServices/VEuPathDB/<current-build>/edaBinaryFiles/<study-name> ~/eda-data
+```
+3. Set the binary files environment variables
+```
+MACHINE_BINARY_FILES_DIR=~/eda-data
+SERVICE_BINARY_FILES_DIR=binary-files
+```
+
 ## Container Deployment
 ### Prerequisites
 In order to deploy the EDA stack locally, the following is required:
