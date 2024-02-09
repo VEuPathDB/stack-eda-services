@@ -373,7 +373,7 @@ services:
 
       ADMIN_AUTH_TOKEN: ${ADMIN_AUTH_TOKEN}     # Auth token
 
-      OAUTH_URL: ${OAUTH_URL}
+      OAUTH_URL: ${OAUTH_URL:-https://eupathdb.org/oauth}
       OAUTH_CLIENT_ID: ${OAUTH_CLIENT_ID}
       OAUTH_CLIENT_SECRET: ${OAUTH_CLIENT_SECRET}
 
