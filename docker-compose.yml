@@ -3,7 +3,7 @@ version: "3.5"
 services:
 
   eda-service:
-    image: veupathdb/eda-service:${DATA_TAG:-latest}
+    image: veupathdb/service-eda:${DATA_TAG:-latest}
     networks:
       internal:
         aliases:
