@@ -69,7 +69,7 @@ services:
       OAUTH_CLIENT_SECRET: ${OAUTH_CLIENT_SECRET}
 
       # Map-reduce subsetting method configuraton
-      BINARY_FILES_DIR: ${SERVICE_BINARY_FILES_DIR:-VEuPathDB/edaBinaryFiles/%DB_BUILD%}
+      BINARY_FILES_DIR: ${SERVICE_BINARY_FILES_DIR:-VEuPathDB/%DB_BUILD%/edaBinaryFiles}
       BINARY_FILES_MOUNT: ${SERVICE_BINARY_FILES_MOUNT:-/binaryFiles}
       DB_BUILD: ${DB_BUILD}
       FILE_SUBSETTING_ENABLED: ${FILE_SUBSETTING_ENABLED:-false}
