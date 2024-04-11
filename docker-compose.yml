@@ -177,6 +177,9 @@ services:
       # Job Settings
       JOB_CACHE_TIMEOUT_DAYS: ${JOB_CACHE_TIMEOUT_DAYS:-30}
 
+      # VDI study access setting
+      VDI_SCHEMA_LIFECYCLE: ${VDI_SCHEMA_LIFECYCLE:-dev_n} # e.g. dev_n, prod_s, qa_n
+
       SITE_URL: ${SITE_URL}                     # e.g. https://clinepidb.org/ce
       REGISTRATION_PATH: /app/user/registration # unused for now
       APPLICATION_PATH: /app/study-access       # unused for now
