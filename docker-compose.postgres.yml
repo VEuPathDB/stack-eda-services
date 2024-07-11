@@ -1,0 +1,42 @@
+version: "3.5"
+
+services:
+  edapostgres:
+    image: eda-postgres
+    environment:
+      POSTGRES_USER: ${USER_DB_USER:?}
+      POSTGRES_PASSWORD: ${USER_DB_PASS:?}
+      POSTGRES_DB: eda
+      PGPORT: 5434
+      VDI_SCHEMA_SUFFIX: ${VDI_SCHEMA_SUFFIX}
+      VDI_DB_PASSWD: ${USER_DB_PASS:?}
+
+
+#    healthcheck:
+#      test: "pg_isready -U ${USER_DB_USER:?} -d ${USER_DB_PASS:?}"
+#      interval: 30s
+#      timeout: 10s
+#      retries: 5
+    networks:
+      - postgres-ext
+      - internal
+    volumes:
+      - cache-db-data:/var/lib/postgresql/data
+    labels:
+      - "com.centurylinklabs.watchtower.enable=${VDI_POSTGRES_WATCHTOWER:-false}"
+    ports:
+      - 5434:5434
+#    command: -p 5434
+
+networks:
+  postgres-ext:
+    name: "postgres-ext" # Omit project prefix for ease of cross-stack reference.
+  traefik:
+    external: true
+  internal:
+    internal: true
+  monitoring-ext:
+    external: true
+
+volumes:
+  cache-db-data:
