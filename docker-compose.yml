@@ -40,25 +40,35 @@ services:
       ORACLE_BASE_DN: ${ORACLE_BASE_DN}
 
       # Application Database
-      APP_DB_TNS_NAME: ${APP_DB_TNS_NAME}
+#      APP_DB_TNS_NAME: ${APP_DB_TNS_NAME}
+      APP_DB_NAME: ${APP_DB_NAME}
+      APP_DB_HOST: ${APP_DB_HOST:-edapostgres}
       APP_DB_USER: ${APP_DB_USER}
       APP_DB_PASS: ${APP_DB_PASS}
+      APP_DB_PORT: 5434
       APP_DB_SCHEMA: ${APP_DB_SCHEMA:-eda.}
       APP_DB_POOL_SIZE: ${APP_DB_POOL_SIZE:-20}
+      APP_DB_PLATFORM: ${APP_DB_PLATFORM:-ORACLE}
       USER_STUDY_SCHEMA: ${USER_STUDY_SCHEMA:-apidbuserdatasets.}
 
       # Account Database
-      ACCT_DB_TNS_NAME: ${ACCT_DB_TNS_NAME}
+      ACCT_DB_NAME: ${ACCT_DB_NAME}
+      ACCT_DB_HOST: ${ACCT_DB_HOST:-edapostgres}
       ACCT_DB_USER: ${ACCT_DB_USER}
       ACCT_DB_PASS: ${ACCT_DB_PASS}
+      ACCT_DB_PORT: 5434
+      ACCT_DB_PLATFORM: ${ACCT_DB_PLATFORM:-ORACLE}
       ACCT_DB_POOL_SIZE: ${ACCT_DB_POOL_SIZE:-3}
 
       # User Database
-      USER_DB_TNS_NAME: ${USER_DB_TNS_NAME}
+      USER_DB_NAME: ${USER_DB_NAME}
+      USER_DB_HOST: ${USER_DB_HOST:-edapostgres}
       USER_DB_USER: ${USER_DB_USER}
       USER_DB_PASS: ${USER_DB_PASS}
+      USER_DB_PORT: 5434
       USER_DB_POOL_SIZE: ${USER_DB_POOL_SIZE:-3}
       USER_DB_SCHEMA: ${USER_DB_SCHEMA:-userlogins5}
+      USER_DB_PLATFORM: ${USER_DB_PLATFORM:-ORACLE}
 
       # Auth Secret (needed along with user/acct DBs for auth)
       AUTH_SECRET_KEY: ${AUTH_SECRET_KEY}
@@ -197,6 +207,8 @@ services:
 
   compute-queue-db:
     image: postgres:14.3-alpine3.16
+    ports:
+      - "5432:5432"
     environment:
       POSTGRES_USER: ${COMPUTE_POSTGRES_USER:-postgresuser}
       POSTGRES_PASSWORD: ${COMPUTE_POSTGRES_PASS}
@@ -205,27 +217,35 @@ services:
       - eda-compute-db:/var/lib/postgresql/data
     networks:
       - internal
+      - external
     labels:
       - "com.centurylinklabs.watchtower.enable=${POSTGRES_WATCHTOWER:-false}"
       - "traefik.enable=false"
 
   compute-queue:
     image: rabbitmq:3.10.5-management-alpine
+    ports:
+      - "5672:5672"
     environment:
       RABBITMQ_DEFAULT_USER: ${COMPUTE_QUEUE_USER:-rabbituser}
       RABBITMQ_DEFAULT_PASS: ${COMPUTE_QUEUE_PASS}
     networks:
       - internal
+      - external
     labels:
       - "com.centurylinklabs.watchtower.enable=${RABBITMQ_WATCHTOWER:-false}"
       - "traefik.enable=false"
 
   rserve:
     image: veupathdb/rserve:${RSERVE_TAG:-latest}
+    ports:
+      - "6311:6311"
     networks:
+      external:
       internal:
         aliases:
           - rserve-internal
+          - external
     labels:
       - "com.centurylinklabs.watchtower.enable=${RSERVE_WATCHTOWER:-false}"
 
@@ -242,3 +262,4 @@ networks:
 
 volumes:
   eda-compute-db:
+  cache-db-data:
