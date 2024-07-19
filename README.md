@@ -70,3 +70,20 @@ docker compose -f docker-compose.yml -f docker-compose.dev.yml up
 ```
 
 > :note: If you included any additional files in step 2a., you should include them in the above command as well (I think? I'm not 100% sure if this matters).
+
+## Running API Tests
+
+### Set up environment
+Copy sample file:
+```
+cp api-testenv.sample.sh api-testenv.sh
+```
+
+Set the environment variables according to the description in the sample file.
+
+### Run the tests!
+Note that the service-eda repository must be checked out as a sibling directory to this project.
+
+```
+make api-tests
+```
