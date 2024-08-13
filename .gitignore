@@ -1,4 +1,5 @@
 .env
 .ideadocker-compose.ssh.yml
 .idea
-*~
+*~docker-compose.ssh.yml
+host-list.yml

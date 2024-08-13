@@ -5,7 +5,13 @@
 #
 # The 'hosts' map keys MUST be "host:port" pairs.
 hosts:
-  ares14.penn.apidb.org:1521:
+  ds1.apidb.org:389:
+  - eda-service
+  ds4.apidb.org:389:
+  - eda-service
+  ares8.penn.apidb.org:1521:
   - eda-service
   ares11.penn.apidb.org:1521:
+  - eda-service
+  ares14.penn.apidb.org:1521:
   - eda-service
