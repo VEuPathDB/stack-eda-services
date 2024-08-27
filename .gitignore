@@ -1,4 +1,5 @@
 .env
+api-testenv.sh
 .ideadocker-compose.ssh.yml
 .idea
 *~docker-compose.ssh.yml
