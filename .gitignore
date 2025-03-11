@@ -4,3 +4,5 @@ api-testenv.sh
 .idea
 *~docker-compose.ssh.yml
 host-list.yml
+docker-compose.ssh.yml
+
