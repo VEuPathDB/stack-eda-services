@@ -1,6 +1,8 @@
 _COLOR := $(shell echo "\\033[38;5;69m")
 _RESET := $(shell echo "\\033[0m")
 
+CONTAINERS :=
+
 .PHONY: default
 default:
 	@echo "Please pick a make target."
@@ -37,6 +39,9 @@ start: env-file-test sibling-directory-test
 .PHONY: stop
 stop: env-file-test sibling-directory-test
 	@docker compose -f docker-compose.yml -f docker-compose.dev.yml -f docker-compose.build.yml -f docker-compose.ssh.yml stop
+.PHONY: logs
+logs: env-file-test
+	@docker compose -f docker-compose.yml -f docker-compose.dev.yml -f docker-compose.build.yml -f docker-compose.ssh.yml logs $(CONTAINERS)
 
 ####
 ##  Helpers
