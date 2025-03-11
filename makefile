@@ -4,6 +4,8 @@ _RESET := $(shell echo "\\033[0m")
 CONTAINERS :=
 
 DOCKER_ARGS := --log-level ERROR
+DOWN_ARGS := -v
+UP_ARGS := -d
 
 .PHONY: default
 default:
@@ -28,19 +30,19 @@ api-test: sibling-directory-test test-env-present-test
 
 .PHONY: up
 up: env-file-test sibling-directory-test
-	@docker $(DOCKER_ARGS) compose -f docker-compose.yml -f docker-compose.dev.yml -f docker-compose.build.yml -f docker-compose.ssh.yml up -d
+	@docker $(DOCKER_ARGS) compose -f docker-compose.yml -f docker-compose.dev.yml -f docker-compose.build.yml -f docker-compose.ssh.yml up $(UP_ARGS) $(CONTAINERS)
 
 .PHONY: down
 down: env-file-test sibling-directory-test
-	@docker $(DOCKER_ARGS) compose -f docker-compose.yml -f docker-compose.dev.yml -f docker-compose.build.yml -f docker-compose.ssh.yml down -v
+	@docker $(DOCKER_ARGS) compose -f docker-compose.yml -f docker-compose.dev.yml -f docker-compose.build.yml -f docker-compose.ssh.yml down $(DOWN_ARGS) $(CONTAINERS)
 
 .PHONY: start
 start: env-file-test sibling-directory-test
-	@docker $(DOCKER_ARGS) compose -f docker-compose.yml -f docker-compose.dev.yml -f docker-compose.build.yml -f docker-compose.ssh.yml start
+	@docker $(DOCKER_ARGS) compose -f docker-compose.yml -f docker-compose.dev.yml -f docker-compose.build.yml -f docker-compose.ssh.yml start $(CONTAINERS)
 
 .PHONY: stop
 stop: env-file-test sibling-directory-test
-	@docker $(DOCKER_ARGS) compose -f docker-compose.yml -f docker-compose.dev.yml -f docker-compose.build.yml -f docker-compose.ssh.yml stop
+	@docker $(DOCKER_ARGS) compose -f docker-compose.yml -f docker-compose.dev.yml -f docker-compose.build.yml -f docker-compose.ssh.yml stop $(CONTAINERS)
 
 .PHONY: logs
 logs: env-file-test
